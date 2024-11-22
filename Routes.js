@@ -30,5 +30,16 @@ routes.get('/id/:id',async(req,res)=>{
     }   
 })
 
+routes.delete('/deleteid/:id',async(req,res)=>{
+    const id=req?.params.id;
+    try {
+        const result = await Services.deleteDataById(id);
+        res.json(result);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }   
+})
+
 
 module.exports=routes;

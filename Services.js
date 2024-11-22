@@ -25,4 +25,17 @@ async function getDataById(id) {
         throw err; // Let the route handler catch this error
     }
 }
-module.exports={getData, getDataById};
+    async function deleteDataById(id){
+        const queryString = `UPDATE story SET status=0 where storyId=${id}`;
+        try {
+            const db = await dbPromise; // Wait for the db connection to resolve
+            const [results] = await db.query(queryString); // Use db.query with await
+            return results;
+        } catch (err) {
+            console.error('Error:', err);
+            throw err; // Let the route handler catch this error
+        }
+}
+
+
+module.exports={getData, getDataById,deleteDataById};

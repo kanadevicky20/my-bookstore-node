@@ -30,7 +30,9 @@ routes.get('/id/:id',async(req,res)=>{
     }   
 })
 
-routes.delete('/deleteid/:id',async(req,res)=>{
+routes.put('/deleteid/:id',async(req,res)=>{
+    console.log("param:",req.params.id);
+    
     const id=req?.params.id;
     try {
         const result = await Services.deleteDataById(id);
@@ -40,6 +42,44 @@ routes.delete('/deleteid/:id',async(req,res)=>{
         res.status(500).json({ error: "Internal Server Error" });
     }   
 })
+
+routes.put('/edit',async(req,res)=>{
+    console.log("req.body:",req?.body.data);
+    
+    const data=req?.body.data;
+    try {
+        const result = await Services.editData(data);
+        res.json(result);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }   
+})
+
+routes.post('/save',async(req,res)=>{
+    const data=req?.body;
+    try {
+        const result = await Services.saveData(data);
+        res.json(result);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }   
+})
+
+routes.post('/signup',async(req,res)=>{
+    console.log("req.body:",req?.body.data);
+    
+    const data=req?.body.data;
+    try {
+        const result = await Services.signUp(data);
+        res.json(result);
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }   
+})
+
 
 
 module.exports=routes;
